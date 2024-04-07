@@ -1,5 +1,11 @@
-saral/
+env/
 
 zzzz/
 
 svm_model.joblib
+
+training_history1.joblib
+nmbmodel_toxic.joblib
+nmbmodel_obscene.joblib
+nmbmodel_insult.joblib
+evaluation_data.joblib

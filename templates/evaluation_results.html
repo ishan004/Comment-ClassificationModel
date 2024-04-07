@@ -1,0 +1,76 @@
+<!-- evaluation/templates/evaluation/evaluation_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluation Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .report-section {
+            margin-top: 20px;
+        }
+        .report-section pre {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        .evaluation-scores {
+            margin-top: 30px;
+        }
+        .evaluation-scores p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Evaluation Results</h1>
+
+        <div class="report-section">
+            <h2>Classification Reports and Confusion Matrices</h2>
+            {% for label, report in reports %}
+                <h3>Classification Report for {{ label }}</h3>
+                <pre>{{ report|safe }}</pre>
+                <h3>Confusion Matrix for {{ label }}</h3>
+                <pre>{{ confusion_matrices.label|safe }}</pre>
+            {% endfor %}
+        </div>
+
+        <div class="evaluation-scores">
+            <h2>Evaluation Scores</h2>
+            <p>Hamming Loss: {{ hamming_loss }}</p>
+            <p>Accuracy: {{ accuracy }}</p>
+            <p>Log Loss: {{ log_loss }}</p>
+        </div>
+    </div>
+</body>
+</html>

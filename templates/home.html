@@ -4,81 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Comments</title>
-    <link rel="stylesheet" href='/media/assets/css/style.css' >
+    {% comment %} <link rel="stylesheet" href='/media/css/style.css' > {% endcomment %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     
 </head>
 <body>
+    <div class="container">
     <h1 class="text-info" style="font-size:50px">YouTube Comments</h1>
 
-{% comment %} 
-    {% for comment, predictions in comments %}
-    <div class="comment">
-        <p>{{ comment }}</p>
-        <ul>
-            {% for label, prediction in predictions %}
-                <li>{{ label }}: {{ prediction }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endfor %} {% endcomment %}
 
+<div class="fetch">
   <form method="post" action="{% url 'display_comments' %}">
         {% csrf_token %}
         <label for="video_url">YouTube Video URL:</label>
-        <input type="url" class="form-control" name="video_url" required>
-        <button type="submit" class="btn btn-lg btn-warning">Fetch Comments</button>
+        <input type="url" class="form-control " name="video_url" required><br><br>
+        <button type="submit" class="btn btn-primary mb-2">Fetch Comments</button>
     </form> 
+</div>
+  
+
+
+
    
-    {% if video_id %}
-        <h2>Video ID: {{ video_id }}</h2>
-    {% endif %}
 
-    {% if comments %}
-        <h3>Comments</h3>
-        <ul>
-        {% for comment in comments %}
-            <li>
-                <strong>{{ comment }}</strong>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No comments found.</p>
-    {% endif %}
-
-
-
-
-    <h2>Comments and Predictions</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Author</th>
-            <th>Comment</th>
-            
-            <th>Labels['Toxic', 'Obscene', 'Insult']</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        {% for comment, predictions in prediction_list %}
-        <tr>
-            <td>{{ comment.author }}</td>
-            <td>{{ comment.text }}</td>
-            {% for prediction in predictions %}
-            <td>{{ prediction }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-
+</div>
 
 </body>
 </html>
-
 
 
 

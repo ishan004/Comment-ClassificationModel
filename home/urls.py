@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import home, display_comments
+from .views import home, display_comments, classify_comments, display_evaluation
 
 
 urlpatterns = [
@@ -7,12 +7,8 @@ urlpatterns = [
     
     path('comments/', display_comments, name='display_comments'),
     path('comments/<str:video_id>/', display_comments, name='display_comments_with_id'),
+    path('classify-comments/', classify_comments, name='classify_comments'),
+    path('classify-comments/<str:video_id>/', classify_comments, name='display_classification_with_id'),
+    path('evaluate/', display_evaluation, name='evaluate'),
+    
 ]
-
-# from django.urls import path
-# from . import views
-
-# urlpatterns = [
-#     path('', views.home, name='home'),
-#     path('analyze/', views.analyze_comments, name='analyze_comments'),
-# ]
