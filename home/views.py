@@ -41,10 +41,12 @@ def preprocess_text(text):
 def home(request):
     return render(request, 'home.html')
 
+def svm(request):
+    return render(request, 'svm.html')
 
 
 
-def get_youtube_comments(api_key, video_id, max_results=50):
+def get_youtube_comments(api_key, video_id, max_results=30):
     youtube = build("youtube", "v3", developerKey=api_key)
 
     request = youtube.commentThreads().list(
@@ -75,6 +77,18 @@ def extract_video_id(video_url):
     video_id = query_params.get('v', [None])[0]
     return video_id
 
+# fetch commments and display
+def fetch_comments(request):
+    if request.method == 'POST':
+        video_url = request.POST.get('video_url', None)
+        if video_url:
+            video_id = extract_video_id(video_url)
+            api_key = "AIzaSyCw7KvWAHPK1SHA3tyEM2f2JcWbZ6jcEd0" 
+            comments = get_youtube_comments(api_key, video_id)
+            return render(request, 'home.html', {'comments': comments})
+    else:
+        return render(request, 'home.html')
+
 #SVM-Classification
 def display_comments(request, video_id=None):
     api_key = "AIzaSyCw7KvWAHPK1SHA3tyEM2f2JcWbZ6jcEd0"
@@ -97,7 +111,7 @@ def display_comments(request, video_id=None):
                 
         comments_df = pd.DataFrame(comments, columns=['author', 'published_at', 'updated_at', 'like_count', 'text'])
         # print(comments_df['text'][0])
-        for index, row in comments_df.head(10).iterrows():
+        for index, row in comments_df.head(2).iterrows():
             comment = row['text']
             comment_preprocessed = preprocess_text(comment)
         
@@ -132,7 +146,7 @@ def display_comments(request, video_id=None):
         }
 
     
-    return render(request, 'prediction.html', context)
+    return render(request, 'svm.html', context)
 
 
 
