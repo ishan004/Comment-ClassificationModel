@@ -252,11 +252,50 @@ def classify_comments(request, video_id= None):
 
 
 from django.shortcuts import render
-from sklearn.metrics import classification_report, confusion_matrix, hamming_loss, accuracy_score, log_loss
+from sklearn.metrics import classification_report, confusion_matrix, hamming_loss, accuracy_score, log_loss, multilabel_confusion_matrix
 import joblib
 
 
+def svm_evaluation(request):
+    history = joblib.load('training_history1.joblib')
+    
+    X_test = history['X_test']
+    Y_test = history['Y_test']
+    predictions_loaded = history['predictions_loaded']
+    
+    label_plot = ['toxic', 'obscene', 'insult']
 
+    # Generate classification report
+    class_report = classification_report(Y_test, predictions_loaded,target_names=label_plot)
+
+    # Print classification report
+    print("Classification Report:\n", class_report)
+
+    # Calculate overall accuracy
+    accuracy = accuracy_score(Y_test, predictions_loaded)
+    print("Overall Accuracy : {}".format(accuracy*100))
+
+    # Calculate Hamming loss
+    hamming_loss_value = hamming_loss(Y_test, predictions_loaded)
+    print("Hamming_loss : {}".format(hamming_loss_value*100))
+
+
+
+    # Generate the confusion matrix
+    confusion_matrices = multilabel_confusion_matrix(Y_test, predictions_loaded)
+
+    confusion_matrices_dict = {}
+    for i, label in enumerate(label_plot):
+        confusion_matrices_dict[label] = confusion_matrices[i]
+        
+    context = {
+        'class_report': class_report,
+        'overall_accuracy': accuracy * 100,
+        'hamming_loss': hamming_loss_value * 100,
+        'confusion_matrices': confusion_matrices_dict
+    }
+
+    return render(request, 'svm_evaluation.html', context)
 
 def display_evaluation(request):
     # Load evaluation data
