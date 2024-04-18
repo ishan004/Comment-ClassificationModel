@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Metrics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .metric-box {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .metric-box h3 {
+            color: #555;
+            margin-top: 0;
+        }
+        .confusion-matrix {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Model Metrics</h2>
+        
+        <div class="metric-box">
+            <h3>Classification Report to Hamming Loss</h3>
+            <pre>{{ class_report }}</pre>
+            <h3>Overall Accuracy: {{ overall_accuracy }}</h3>
+            <h3>Hamming Loss: {{ hamming_loss }}</h3>
+        </div>
+        
+        <div class="metric-box">
+            <h3>Confusion Matrices:</h3>
+            {% for label, matrix in confusion_matrices.items %}
+                <div class="confusion-matrix">
+                    <h4>Confusion Matrix for {{ label }}:</h4>
+                    <pre>{{ matrix }}</pre>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
