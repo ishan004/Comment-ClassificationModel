@@ -42,9 +42,9 @@
         <h1 class="text-info" style="font-size:50px">Toxic Comment Classifier (SVM)</h1>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- Form Container -->
-                <div class="form-container">
+                {% comment %} <div class="form-container">
                     <form method="post" action="{% url 'display_comments' %}">
                         {% csrf_token %}
                         <div class="form-group">
@@ -52,7 +52,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Fetch Comments</button>
                     </form>
-                </div>
+                </div> {% endcomment %}
 
                 <!-- SVM Prediction Results -->
                 
@@ -82,7 +82,7 @@
             <!-- Comments and Predictions Table Column -->
             <div class="comments-container">
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h1>Comments and Predictions</h1>
                 <table class="comments-table">
                     <thead>
@@ -110,8 +110,8 @@
         </div>
     </div>
     <div class="button">
-        <a href="{% url 'fetch_comment' %}"><button type="submit" class="btn btn-primary">Comment Fetcher</button></a>
-        <a href="{% url 'classify_comments' %}"><button type="submit" class="btn btn-primary">MNB Classification</button></a>
+        <a href="{% url 'home' %}"><button type="submit" class="btn btn-primary">Home</button></a>
+        
     </div>
 </body>
 </html>
