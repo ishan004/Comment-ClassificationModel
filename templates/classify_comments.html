@@ -60,15 +60,15 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Form Container -->
-                <div class="form-container">
+                {% comment %} <div class="form-container">
                     <form method="post" action="{% url 'classify_comments' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="url" class="form-control" id="video_url" name="video_url" placeholder="Youtube-URL" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Fetch Comments</button>
-                    </form>
-                </div>
+                    </form> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
 
                 <!-- Classification Results -->
                 <div class="comments-container">
@@ -108,8 +108,8 @@
         </div>
     </div>
     <div class="button">
-        <a href="{% url 'fetch_comment' %}"><button type="submit" class="btn btn-primary">Comment Fetcher</button></a>
-        <a href="{% url 'svm' %}"><button type="submit" class="btn btn-primary">SVM Classification</button></a>
+        <a href="{% url 'home' %}"><button type="submit" class="btn btn-primary">Home</button></a>
+        {% comment %} <a href="{% url 'svm' %}"><button type="submit" class="btn btn-primary">SVM Classification</button></a> {% endcomment %}
         <a href="{% url 'evaluate' %}" class="btn btn-primary mb-2">Evaluate Performance of MNB</a> 
     </div>
 </body>

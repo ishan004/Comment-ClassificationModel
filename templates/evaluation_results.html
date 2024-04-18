@@ -34,13 +34,12 @@
         .report-section {
             margin-top: 20px;
         }
-        .report-section pre {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
+        .report-box, .matrix-box {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            overflow-x: auto;
+            background-color: #f9f9f9;
         }
         .evaluation-scores {
             margin-top: 30px;
@@ -58,10 +57,15 @@
         <div class="report-section">
             <h2>Classification Reports and Confusion Matrices</h2>
             {% for label, report in reports %}
-                <h3>Classification Report for {{ label }}</h3>
-                <pre>{{ report|safe }}</pre>
-                <h3>Confusion Matrix for {{ label }}</h3>
-                <pre>{{ confusion_matrices.label|safe }}</pre>
+                <div class="report-box">
+                    <h3>Classification Report for {{ label }}</h3>
+                    
+                    <pre>{{ report.0|safe }}<br>{{ report.1|safe }}</pre>
+                </div>
+                <div class="matrix-box">
+                    <h3>Confusion Matrix for {{ label }}</h3>
+                    <pre>{{ confusion_matrices}}</pre>
+                </div>
             {% endfor %}
         </div>
 

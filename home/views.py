@@ -34,6 +34,20 @@ def preprocess_text(text):
 
 
 
+def process_video(request):
+    if request.method == 'POST':
+        video_url = request.POST.get('video_url', None)
+        action = request.POST.get('action', None)
+
+        if video_url:
+            if action == 'fetch_comments':              
+                return fetch_comments(request)
+            elif action == 'display_comments':             
+                return display_comments(request)
+            elif action == 'classify_comments':              
+                return classify_comments(request)
+    else:        
+        return render(request, 'home.html')
 
 
 
@@ -241,12 +255,16 @@ from django.shortcuts import render
 from sklearn.metrics import classification_report, confusion_matrix, hamming_loss, accuracy_score, log_loss
 import joblib
 
+
+
+
 def display_evaluation(request):
     # Load evaluation data
     evaluation_data = joblib.load("evaluation_data.joblib")
 
     # Extract necessary information
     true_labels = evaluation_data['true_labels']
+    
     predicted_labels = evaluation_data['predicted_labels']
     label_plot = evaluation_data['label_plot']
 
@@ -258,7 +276,7 @@ def display_evaluation(request):
         matrix = confusion_matrix(true_labels[:, i], predicted_labels[:, i])
         reports.append((label, report))
         confusion_matrices[label] = matrix
-
+    print(confusion_matrices)
     # Calculate evaluation scores
     loss = hamming_loss(true_labels, predicted_labels)
     accuracy = accuracy_score(true_labels, predicted_labels)
