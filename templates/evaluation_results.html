@@ -62,11 +62,17 @@
                     
                     <pre>{{ report.0|safe }}<br>{{ report.1|safe }}</pre>
                 </div>
-                <div class="matrix-box">
-                    <h3>Confusion Matrix for {{ label }}</h3>
-                    <pre>{{ confusion_matrices}}</pre>
-                </div>
+               
             {% endfor %}
+        </div>
+        <div class="matrix-box">
+            <h3>Confusion Matrix </h3>
+            {% for label, matrix in confusion_matrices.items %}
+        <div class="confusion-matrix">
+            <h4>Confusion Matrix for {{ label }}:</h4>
+            <pre>{{ matrix }}</pre>
+        </div>
+    {% endfor %}
         </div>
 
         <div class="evaluation-scores">
